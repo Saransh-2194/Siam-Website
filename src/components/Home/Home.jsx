@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import { FlipWords } from '../ui/flip-words'; // Adjust path if necessary
 import img1 from './img1.jpg'; // Import background image
@@ -6,8 +6,14 @@ import '../../index.css';
 
 export default function Home() {
   const [transitioning, setTransitioning] = useState(false);   // Track loading state
+  const [fadeIn, setFadeIn] = useState(true);
   const synonyms = ["Creativity", "Advancement", "Progress", "Innovation", "Vision", "Imagination", "Exploration", "Transformation"];
   const navigate = useNavigate();  // Hook to navigate to different pages
+
+  useEffect(() => {
+    const timer = setTimeout(() => setFadeIn(false), 1000); // Remove fade-in class after animation
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleExploreClick = () => {
     setTransitioning(true);  // Start loading animation
