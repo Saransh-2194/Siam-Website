@@ -2,25 +2,26 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import { FlipWords } from '../ui/flip-words'; // Adjust path if necessary
 import img1 from './img1.jpg'; // Import background image
+import '../../index.css';
 
 export default function Home() {
-  const [loading, setLoading] = useState(false);  // Track loading state
+  const [transitioning, setTransitioning] = useState(false);   // Track loading state
   const synonyms = ["Creativity", "Advancement", "Progress", "Innovation", "Vision", "Imagination", "Exploration", "Transformation"];
   const navigate = useNavigate();  // Hook to navigate to different pages
 
   const handleExploreClick = () => {
-    setLoading(true);  // Start loading animation
+    setTransitioning(true);  // Start loading animation
 
     // Simulate loading animation with setTimeout
     setTimeout(() => {
-      setLoading(false);  // Stop loading after animation
+      // setTransitioning(false);  // Stop loading after animation
       navigate('/about');  // Navigate to About page after animation
-    }, 3000);  // Duration of loading animation
+    }, 300);  // Duration of loading animation
   };
 
   return (
     <div 
-      className="fixed inset-0 bg-cover bg-center flex flex-col items-center justify-center font-sans"
+      className={`fixed inset-0 bg-cover bg-center flex flex-col items-center justify-center font-sans ${transitioning ? 'fade-out' : ''}`}
       style={{ backgroundImage: `url(${img1})` }}
     >
       {/* Main Content with Expanded Black Box and Entrance Animation */}
@@ -48,15 +49,6 @@ export default function Home() {
           </button>
         </div>
       </div>
-
-      {/* Loading Animation (Overlay with Loading Spinner) */}
-      {loading && (
-        <div className="blur-overlay">
-          <div className="loading-spinner">
-            <div className="spinner"></div>
-          </div>
-        </div>
-      )}
 
       {/* Footer */}
       <footer className="absolute bottom-0 w-full text-center py-4 bg-black bg-opacity-80">
